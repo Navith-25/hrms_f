@@ -1,5 +1,11 @@
 package com.nibm.hr.hrms;
 
+// --- ADD THESE IMPORTS ---
+import com.nibm.hr.hrms.model.Employee;
+import com.nibm.hr.hrms.repository.EmployeeRepository;
+import java.time.LocalDate;
+// --- END IMPORTS ---
+
 import com.nibm.hr.hrms.model.Role;
 import com.nibm.hr.hrms.model.User;
 import com.nibm.hr.hrms.repository.RoleRepository;
@@ -25,11 +31,12 @@ public class HrmsApplication {
 
     // This bean will run on application startup
     @Bean
-    public CommandLineRunner initialData(RoleRepository roleRepository, UserRepository userRepository) {
+    public CommandLineRunner initialData(RoleRepository roleRepository,
+                                         UserRepository userRepository,
+                                         EmployeeRepository employeeRepository) { // <-- ADDED EmployeeRepository
         return args -> {
 
             // --- Create Roles ---
-            // Only create roles if they don't exist
             Role adminRole = roleRepository.findByName("ROLE_ADMIN");
             if (adminRole == null) {
                 adminRole = new Role();
@@ -52,14 +59,18 @@ public class HrmsApplication {
             }
 
             // --- Create Admin User ---
-            // Only create admin user if they don't exist
             if (userRepository.findByUsername("admin") == null) {
                 User adminUser = new User();
                 adminUser.setUsername("admin");
-                // IMPORTANT: Always encode the password!
                 adminUser.setPassword(passwordEncoder.encode("admin123"));
                 adminUser.setRoles(Set.of(adminRole));
                 userRepository.save(adminUser);
+
+                // --- THIS IS THE FIX: Create matching Employee record ---
+                // We use "admin" as the email to link to the user "admin"
+                Employee adminEmployee = new Employee("Admin", "User", "admin", "System Admin", "IT", LocalDate.now());
+                employeeRepository.save(adminEmployee);
+                // --- END FIX ---
             }
 
             // --- Create HR User ---
@@ -69,6 +80,12 @@ public class HrmsApplication {
                 hrUser.setPassword(passwordEncoder.encode("hr123"));
                 hrUser.setRoles(Set.of(hrRole));
                 userRepository.save(hrUser);
+
+                // --- THIS IS THE FIX: Create matching Employee record ---
+                // We use "hr_manager" as the email to link to the user "hr_manager"
+                Employee hrEmployee = new Employee("HR", "Manager", "hr_manager", "HR Manager", "Human Resources", LocalDate.now());
+                employeeRepository.save(hrEmployee);
+                // --- END FIX ---
             }
 
             // --- Create Regular Employee User ---
@@ -78,6 +95,12 @@ public class HrmsApplication {
                 empUser.setPassword(passwordEncoder.encode("emp123"));
                 empUser.setRoles(Set.of(employeeRole));
                 userRepository.save(empUser);
+
+                // --- THIS IS THE FIX: Create matching Employee record ---
+                // We use "employee1" as the email to link to the user "employee1"
+                Employee empEmployee = new Employee("Demo", "Employee", "employee1", "Software Engineer", "Engineering", LocalDate.now());
+                employeeRepository.save(empEmployee);
+                // --- END FIX ---
             }
         };
     }
