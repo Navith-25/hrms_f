@@ -3,58 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <title>HRMS Login</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        /* Extra styles for the login form */
-        .login-container {
-            width: 300px;
-            margin: 100px auto;
+    <style type="text/css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
             padding: 20px;
+            color: #212529;
+            line-height: 1.6;
+            /* Center the login box vertically */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 90vh;
+        }
+
+        .login-container {
+            width: 350px; /* Slightly wider for better padding */
+            margin: 0 auto; /* Removed top margin, body flex handles centering */
+            padding: 30px;
             background: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #dee2e6;
         }
+
         .login-container h1 {
+            color: #343a40;
+            font-size: 2rem;
+            font-weight: 600;
             text-align: center;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
             margin-bottom: 20px;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
+
         .form-group label {
             display: block;
-            margin-bottom: 5px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            color: #495057;
         }
+
+        /* Unified input style */
         .form-group input {
-            width: 93%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
+
+        .form-group input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        /* Login button style based on .btn-primary */
         .btn-login {
             width: 100%;
-            padding: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
             cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            background-color: #007bff;
+            color: #ffffff;
+            border-color: #007bff;
         }
+
+        .btn-login:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Alert message styles */
+        .error-message, .logout-message {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 0.95em;
+            border: 1px solid transparent;
+        }
+
         .error-message {
-            color: red;
-            background: #fdd;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            text-align: center;
+            color: #721c24; /* Darker red text */
+            background-color: #f8d7da; /* Light red background */
+            border-color: #f5c6cb;
         }
+
         .logout-message {
-            color: green;
-            background: #dfd;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 15px;
-            text-align: center;
+            color: #155724; /* Darker green text */
+            background-color: #d4edda; /* Light green background */
+            border-color: #c3e6cb;
         }
     </style>
 </head>

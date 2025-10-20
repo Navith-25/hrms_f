@@ -4,7 +4,163 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Leave Requests</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-bar {
+            background-color: #004a99;
+            color: #ffffff;
+            padding: 15px 20px;
+            border-radius: 8px 8px 0 0;
+            margin: -30px -30px 20px -30px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .header-bar span, .header-bar a {
+            color: #ffffff;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .header-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-logout {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+
+        .btn-logout:hover {
+            background-color: #c9302c;
+        }
+
+        .header-bar form {
+            margin-left: 10px;
+        }
+
+        h1, h2 {
+            color: #004a99;
+        }
+
+        h1 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            margin-top: 30px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 20px 0;
+        }
+
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #004a99;
+            color: #ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .styled-table tbody tr {
+            background-color: #f9f9f9;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #004a99;
+        }
+
+        .styled-table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .styled-table td[colspan="5"] {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 2px 4px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.4;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .btn-update {
+            background-color: #5cb85c;
+            border-color: #4cae4c;
+        }
+
+        .btn-update:hover {
+            background-color: #449d44;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+            border-color: #d43f3a;
+        }
+
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">

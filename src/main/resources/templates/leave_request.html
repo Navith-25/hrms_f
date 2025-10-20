@@ -4,7 +4,226 @@
 <head>
     <meta charset="UTF-8">
     <title>My Leave Requests</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style type="text/css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #dee2e6;
+        }
+
+        /* Header Bar from first example */
+        .header-bar {
+            background-color: #004a99; /* Using a consistent theme color */
+            color: #ffffff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .header-bar span, .header-bar a {
+            color: #ffffff;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .header-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-logout {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+
+        .btn-logout:hover {
+            background-color: #c9302c;
+        }
+
+        .header-bar form {
+            margin-left: 10px;
+        }
+
+        h1 {
+            color: #343a40;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        h2 {
+            color: #0056b3;
+            font-size: 1.5rem;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            padding-bottom: 10px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e9ecef;
+            margin: 20px 0;
+        }
+
+        /* Form Styles */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            max-width: 600px; /* Constrain form width */
+        }
+
+        .form-container label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            color: #495057;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #ffffff;
+            border-color: #007bff;
+            align-self: flex-start; /* Align button to the left */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        /* Table Styles */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .styled-table thead tr {
+            background-color: #0056b3;
+            color: #ffffff;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .styled-table tbody tr {
+            background-color: #ffffff;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f8f9fa;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #0056b3;
+        }
+
+        .styled-table tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        .styled-table td[colspan="4"] {
+            text-align: center;
+            color: #777;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        /* Status Styles (from user) */
+        .status-approved {
+            color: #28a745; /* Green */
+            font-weight: bold;
+            background-color: #e9f7ec;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .status-rejected {
+            color: #dc3545; /* Red */
+            font-weight: bold;
+            background-color: #fdebec;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .status-pending {
+            color: #fd7e14; /* Orange */
+            font-weight: bold;
+            background-color: #fff8e1;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">

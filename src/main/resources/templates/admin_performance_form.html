@@ -3,34 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <title>Performance Review Form</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-        .form-group label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .form-input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box; /* Important for width 100% */
-        }
-        .full-width {
-            grid-column: 1 / -1; /* Span both columns */
-        }
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
+    <style type="text/css">
+    body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+    color: #212529;
+    line-height: 1.6;
+    }
+
+    .container {
+    /* Increased max-width for the wider form */
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #dee2e6;
+    }
+
+    h1 {
+    color: #343a40;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+    }
+
+    h2 {
+    color: #0056b3; /* A highlight color for the employee name */
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 500;
+    border-bottom: 2px solid #f1f1f1;
+    padding-bottom: 10px;
+    }
+
+    hr {
+    border: 0;
+    height: 1px;
+    background: #e9ecef;
+    margin: 20px 0;
+    }
+
+    .form-container {
+    display: flex;
+    flex-direction: column;
+    }
+
+    /* Grid styles from user's code */
+    .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px; /* Slightly increased gap */
+    }
+
+    .form-group {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .full-width {
+    grid-column: 1 / -1; /* Span both columns */
+    }
+
+    /* Updated label style */
+    .form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: #495057;
+    }
+
+    /* Unified input style */
+    .form-input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 5px; /* Reduced margin as gap is in grid */
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    /* Ensure selects and textareas have same font */
+    font-family: inherit;
+    }
+
+    .form-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+    }
+
+    /* Textarea-specific styles */
+    textarea.form-input {
+    min-height: 120px;
+    resize: vertical;
+    }
+
+    .btn {
+    display: inline-block;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    margin-right: 10px;
+    }
+
+    .btn-primary {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    }
+
+    .btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+    border-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+    }
+
+    /* Style for the button container div */
+    .form-actions {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e9ecef;
+    }
+
     </style>
+
 </head>
 <body>
 <div class="container">

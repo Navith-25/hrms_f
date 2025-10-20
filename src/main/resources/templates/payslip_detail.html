@@ -3,37 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <title>Payslip Details</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
+    <style type="text/css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px; /* Adjusted width to nicely fit the payslip box */
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #dee2e6;
+        }
+
+        /* Back Button Style */
+        .btn-logout {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: #f1f1f1;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+            margin-bottom: 20px; /* Space below button */
+        }
+
+        .btn-logout:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Styles from this page's <style> block, integrated */
         .payslip-box {
             max-width: 600px;
             margin: 20px auto;
-            border: 1px solid #ccc;
-            padding: 20px;
+            border: 1px solid #dee2e6; /* Theme border color */
+            padding: 30px; /* Increased padding */
             border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
+
         .payslip-header {
             text-align: center;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            border-bottom: 2px solid #343a40; /* Darker line */
+            padding-bottom: 15px;
+            margin-bottom: 25px;
         }
+
+        .payslip-header h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #0056b3; /* Theme color */
+            font-size: 1.8rem;
+        }
+
+        .payslip-header p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #495057;
+        }
+
         .payslip-table {
             width: 100%;
+            border-collapse: collapse; /* Ensure borders look clean */
         }
+
         .payslip-table td {
-            padding: 8px 0;
+            padding: 12px 5px; /* Added horizontal padding */
+            border-bottom: 1px solid #e9ecef; /* Light line for each item */
         }
+
         .payslip-table .label {
-            font-weight: bold;
+            font-weight: 600;
+            color: #495057;
         }
+
         .payslip-table .amount {
             text-align: right;
+            font-family: "Courier New", Courier, monospace; /* Monospaced font for numbers */
+            font-size: 1.05em;
         }
-        .total-line {
-            border-top: 2px solid #333;
-            font-size: 1.2em;
+
+        /* Style for subtotal lines (Gross Pay, Total Deductions) */
+        .payslip-table tr[style*="border-bottom"] td,
+        .payslip-table tr:nth-last-child(2) td { /* Target Total Deductions row */
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .payslip-table tr[style*="border-bottom"] strong,
+        .payslip-table tr:nth-last-child(2) strong {
+            color: #343a40;
+        }
+
+        .total-line td {
+            border-top: 2px solid #343a40; /* Darker line */
+            font-size: 1.3em;
             font-weight: bold;
+            color: #0056b3; /* Theme color */
+            padding-top: 15px;
+        }
+
+        .total-line .amount {
+            color: #0056b3;
         }
     </style>
 </head>

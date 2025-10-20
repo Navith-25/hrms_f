@@ -4,27 +4,122 @@
 <head>
     <meta charset="UTF-8">
     <title>My Performance Reviews</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        .review-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
+    <style type="text/css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
             padding: 20px;
-            margin-bottom: 20px;
-            background: #fdfdfd;
+            color: #212529;
+            line-height: 1.6;
         }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #dee2e6;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            background-color: #004a99; /* Using a consistent theme color */
+            color: #ffffff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .header-bar span, .header-bar a {
+            color: #ffffff;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+
+        .header-bar a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-logout {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9em;
+            display: inline-block;
+        }
+
+        .btn-logout:hover {
+            background-color: #c9302c;
+        }
+
+        .header-bar form {
+            margin-left: 10px;
+        }
+
+        h1 {
+            color: #343a40;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e9ecef;
+            margin: 20px 0;
+        }
+
+        /* Styles from this page's <style> block, integrated */
+        .review-card {
+            border: 1px solid #dee2e6; /* Using theme border color */
+            border-radius: 8px;
+            padding: 25px; /* Increased padding */
+            margin-bottom: 25px;
+            background: #ffffff; /* Brighter background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03); /* Subtle shadow */
+        }
+
         .review-card h3 {
             margin-top: 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            border-bottom: 1px solid #e9ecef; /* Using theme border color */
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: #0056b3; /* Theme color */
         }
+
         .review-card h4 {
-            color: #333;
-            margin-bottom: 5px;
+            color: #495057; /* Darker text */
+            margin-bottom: 8px;
+            font-size: 1rem;
+            font-weight: 600;
         }
+
         .review-card p {
             margin-top: 0;
+            margin-bottom: 20px;
+            color: #343a40;
+            line-height: 1.7;
         }
+
+        /* Style for the "N/A" text */
+        .review-card p:empty::after {
+            content: 'N/A';
+            color: #888;
+            font-style: italic;
+        }
+
     </style>
 </head>
 <body>

@@ -4,7 +4,125 @@
 <head>
     <meta charset="UTF-8">
     <title>Add New Employee</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style type="text/css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px; /* Standard width for a form */
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #dee2e6;
+        }
+
+        h1 {
+            color: #343a40;
+            font-size: 2rem;
+            margin-bottom: 25px; /* More space after h1 */
+            font-weight: 600;
+            text-align: center; /* Center form title */
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e9ecef;
+            margin: 20px 0;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* No labels, so no label style needed. Styling inputs directly. */
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px; /* Spacing between inputs */
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        /* Style for placeholders */
+        .form-input::placeholder {
+            color: #999;
+            opacity: 1; /* Firefox */
+        }
+        .form-input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: #999;
+        }
+        .form-input::-ms-input-placeholder { /* Microsoft Edge */
+            color: #999;
+        }
+
+
+        .form-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            outline: none;
+        }
+
+        /* Style for date input to show placeholder text */
+        input[type="date"].form-input {
+            color: #333; /* Show selected date text */
+        }
+        /* This is a common trick to show placeholder-like text for date */
+        input[type="date"].form-input:invalid {
+            color: #999;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            margin-right: 10px;
+            margin-top: 10px; /* Space above buttons */
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #ffffff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #ffffff;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">

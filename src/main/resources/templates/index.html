@@ -4,16 +4,213 @@
 <head>
     <meta charset="UTF-8">
     <title>HR Management System</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <style>
-        .header-bar { text-align: right; margin-bottom: 15px; font-size: 16px; }
-        .header-bar span { font-weight: bold; color: #333; }
-        .btn-logout { background: none; border: none; color: #007bff; cursor: pointer; text-decoration: underline; font-size: 1em; padding: 0; margin: 0; vertical-align: baseline; }
-        .btn-logout:hover { color: #0056b3; }
-        .btn-payroll { background-color: #ffc107; color: #212529; padding: 6px 12px; margin-right: 5px; font-weight: 500; }
-        .btn-payroll:hover { background-color: #e0a800; }
-        .btn-performance { background-color: #6f42c1; padding: 6px 12px; font-weight: 500; }
-        .btn-performance:hover { background-color: #5a349a; }
+    <style type="text/css">
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #212529;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px; /* Wider container for this table */
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #dee2e6;
+        }
+
+        /* Styles from this page's <style> block */
+        .header-bar {
+            text-align: right;
+            margin-bottom: 15px;
+            font-size: 16px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .header-bar span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .btn-logout {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 1em;
+            padding: 0;
+            margin: 0 0 0 5px;
+            vertical-align: baseline;
+        }
+
+        .btn-logout:hover {
+            color: #0056b3;
+        }
+
+        h1 {
+            color: #343a40;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        h2 {
+            color: #343a40;
+            font-size: 1.5rem;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #e9ecef;
+            margin: 20px 0;
+        }
+
+        /* General Button Styles */
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #ffffff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #ffffff;
+            border-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+
+        /* Table Styles */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.95em;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .styled-table thead tr {
+            background-color: #0056b3;
+            color: #ffffff;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .styled-table td {
+            vertical-align: middle;
+        }
+
+        .styled-table tbody tr {
+            background-color: #ffffff;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f8f9fa;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid #0056b3;
+        }
+
+        .styled-table tbody tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        /* Table Action Button Styles */
+        .btn-update, .btn-danger, .btn-payroll, .btn-performance {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 0.9em;
+            font-weight: 500;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+            margin-right: 5px;
+            margin-bottom: 5px; /* For stacking */
+            color: #ffffff;
+        }
+
+        /* Specific Action Button Colors */
+        .btn-update {
+            background-color: #17a2b8; /* Info */
+            border-color: #17a2b8;
+        }
+        .btn-update:hover {
+            background-color: #117a8b;
+        }
+
+        .btn-danger {
+            background-color: #d9534f; /* Danger */
+            border-color: #d43f3a;
+        }
+        .btn-danger:hover {
+            background-color: #c9302c;
+        }
+
+        /* Styles from this page's <style> block, merged */
+        .btn-payroll {
+            background-color: #ffc107; /* Warning */
+            color: #212529;
+            border-color: #ffc107;
+        }
+        .btn-payroll:hover {
+            background-color: #e0a800;
+        }
+
+        .btn-performance {
+            background-color: #6f42c1; /* Indigo */
+            color: #ffffff; /* Added for contrast */
+            border-color: #6f42c1;
+        }
+        .btn-performance:hover {
+            background-color: #5a349a;
+        }
+
     </style>
 </head>
 <body>
