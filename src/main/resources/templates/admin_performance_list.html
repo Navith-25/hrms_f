@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Performance Reviews</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <a th:href="@{/}" class="btn-logout" style="font-weight: bold;">&larr; Back to Home</a>
+    <hr>
+    <h1>Performance Reviews</h1>
+    <h2 th:text="${'Employee: ' + employee.firstName + ' ' + employee.lastName}">Employee Name</h2>
+
+    <a th:href="@{/admin/performance/new/{employeeId}(employeeId=${employee.id})}" class="btn btn-primary">
+        Start New Review
+    </a>
+
+    <table class="styled-table" style="margin-top: 20px;">
+        <thead>
+        <tr>
+            <th>Review Date</th>
+            <th>Overall Rating (1-5)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(reviews)}">
+            <td colspan="3" style="text-align: center;">No reviews found for this employee.</td>
+        </tr>
+        <tr th:each="review : ${reviews}">
+            <td th:text="${review.reviewDate}"></td>
+            <td th:text="${review.overallRating != null ? review.overallRating : 'N/A'}"></td>
+            <td>
+                <a th:href="@{/admin/performance/edit/{reviewId}(reviewId=${review.id})}" class="btn btn-update">Edit / View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Employee</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Add New Employee</h1>
+    <hr>
+
+    <form action="#" th:action="@{/saveEmployee}" th:object="${employee}" method="POST" class="form-container">
+        <input type="text" th:field="*{firstName}" placeholder="Employee First Name" class="form-input" required>
+        <input type="text" th:field="*{lastName}" placeholder="Employee Last Name" class="form-input">
+        <input type="email" th:field="*{email}" placeholder="Employee Email" class="form-input" required>
+        <input type="text" th:field="*{department}" placeholder="Department" class="form-input">
+        <input type="text" th:field="*{position}" placeholder="Position" class="form-input">
+        <input type="date" th:field="*{hireDate}" class="form-input">
+
+        <button type="submit" class="btn btn-primary">Save Employee</button>
+        <a th:href="@{/}" class="btn btn-secondary">Back to List</a>
+    </form>
+</div>
+</body>
+</html>

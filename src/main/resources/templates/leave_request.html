@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>My Leave Requests</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+
+    <div class="header-bar">
+        Welcome, <span sec:authentication="name"></span> |
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+        | <a th:href="@{/}" class="btn-logout" style="font-weight: bold;">Home</a>
+    </div>
+
+    <h1>My Leave Requests</h1>
+    <hr>
+
+    <h2>Submit New Request</h2>
+    <form action="#" th:action="@{/leave/request}" th:object="${leaveRequest}" method="POST" class="form-container">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" th:field="*{startDate}" class="form-input" required>
+
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" th:field="*{endDate}" class="form-input" required>
+
+        <label for="reason">Reason:</label>
+        <textarea id="reason" th:field="*{reason}" placeholder="Enter reason for leave" class="form-input" rows="4" required></textarea>
+
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+    </form>
+
+    <hr style="margin-top: 40px;">
+
+    <h2>My Request History</h2>
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Reason</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(myLeaveRequests)}">
+            <td colspan="4" style="text-align: center;">You have no leave requests.</td>
+        </tr>
+        <tr th:each="request : ${myLeaveRequests}">
+            <td th:text="${request.startDate}"></td>
+            <td th:text="${request.endDate}"></td>
+            <td th:text="${request.reason}"></td>
+            <td>
+                    <span th:text="${request.status}"
+                          th:classappend="${request.status == 'APPROVED'} ? 'status-approved' :
+                                           (${request.status == 'REJECTED'} ? 'status-rejected' : 'status-pending')">
+                    </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .status-approved { color: green; font-weight: bold; }
+    .status-rejected { color: red; font-weight: bold; }
+    .status-pending { color: orange; font-weight: bold; }
+</style>
+
+</body>
+</html>

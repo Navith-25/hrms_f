@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Performance Review Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box; /* Important for width 100% */
+        }
+        .full-width {
+            grid-column: 1 / -1; /* Span both columns */
+        }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${review.id == null ? 'New Performance Review' : 'Edit Performance Review'}"></h1>
+    <h2 th:text="${'For: ' + employeeName}">Employee Name</h2>
+    <hr>
+
+    <form action="#" th:action="@{/admin/performance/save}" th:object="${review}" method="POST" class="form-container" style="max-width: 900px;">
+
+        <input type="hidden" th:field="*{id}" />
+        <input type="hidden" th:field="*{employee.id}" />
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="reviewDate">Review Date:</label>
+                <input type="date" id="reviewDate" th:field="*{reviewDate}" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label for="overallRating">Overall Rating (1-5):</label>
+                <select id="overallRating" th:field="*{overallRating}" class="form-input">
+                    <option value="">Select Rating</option>
+                    <option value="1">1 - Poor</option>
+                    <option value="2">2 - Needs Improvement</option>
+                    <option value="3">3 - Meets Expectations</option>
+                    <option value="4">4 - Exceeds Expectations</option>
+                    <option value="5">5 - Outstanding</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="qualityOfWork">Quality of Work (1-5):</label>
+                <select id="qualityOfWork" th:field="*{qualityOfWork}" class="form-input">
+                    <option value="">Select Rating</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="communication">Communication (1-5):</label>
+                <select id="communication" th:field="*{communication}" class="form-input">
+                    <option value="">Select Rating</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productivity">Productivity (1-5):</label>
+                <select id="productivity" th:field="*{productivity}" class="form-input">
+                    <option value="">Select Rating</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dependability">Dependability (1-5):</label>
+                <select id="dependability" th:field="*{dependability}" class="form-input">
+                    <option value="">Select Rating</option>
+                    <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="strengths">Strengths:</label>
+                <textarea id="strengths" th:field="*{strengths}" class="form-input"></textarea>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="areasForImprovement">Areas for Improvement:</label>
+                <textarea id="areasForImprovement" th:field="*{areasForImprovement}" class="form-input"></textarea>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="managerComments">Manager Comments:</label>
+                <textarea id="managerComments" th:field="*{managerComments}" class="form-input"></textarea>
+            </div>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary">Save Review</button>
+            <a th:href="@{/admin/performance/list/{employeeId}(employeeId=*{employee.id})}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

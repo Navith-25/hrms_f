@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Leave Requests</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+
+    <div class="header-bar">
+        Welcome, <span sec:authentication="name"></span> |
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+        | <a th:href="@{/}" class="btn-logout" style="font-weight: bold;">Home</a>
+    </div>
+
+    <h1>Manage Leave Requests</h1>
+    <hr>
+    <h2>Pending Requests</h2>
+
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>Employee Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Reason</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(pendingRequests)}">
+            <td colspan="5" style="text-align: center;">No pending leave requests.</td>
+        </tr>
+        <tr th:each="request : ${pendingRequests}">
+            <td th:text="${request.employee.firstName + ' ' + request.employee.lastName}"></td>
+            <td th:text="${request.startDate}"></td>
+            <td th:text="${request.endDate}"></td>
+            <td th:text="${request.reason}"></td>
+            <td>
+                <a th:href="@{/admin/leave/approve/{id}(id=${request.id})}" class="btn btn-update">Approve</a>
+                <a th:href="@{/admin/leave/reject/{id}(id=${request.id})}" class="btn btn-danger">Reject</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

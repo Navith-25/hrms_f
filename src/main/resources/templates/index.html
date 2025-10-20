@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>HR Management System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .header-bar { text-align: right; margin-bottom: 15px; font-size: 16px; }
+        .header-bar span { font-weight: bold; color: #333; }
+        .btn-logout { background: none; border: none; color: #007bff; cursor: pointer; text-decoration: underline; font-size: 1em; padding: 0; margin: 0; vertical-align: baseline; }
+        .btn-logout:hover { color: #0056b3; }
+        .btn-payroll { background-color: #ffc107; color: #212529; padding: 6px 12px; margin-right: 5px; font-weight: 500; }
+        .btn-payroll:hover { background-color: #e0a800; }
+        .btn-performance { background-color: #6f42c1; padding: 6px 12px; font-weight: 500; }
+        .btn-performance:hover { background-color: #5a349a; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-bar">
+        Welcome, <span sec:authentication="name"></span> |
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <a th:href="@{/leave}" class="btn btn-secondary">My Leave Requests</a>
+        <a th:href="@{/payslips}" class="btn btn-secondary">My Payslips</a>
+        <a th:href="@{/performance}" class="btn btn-secondary">My Performance</a>
+
+        <a th:href="@{/admin/leave}" class="btn btn-primary"
+           sec:authorize="hasAnyRole('ADMIN', 'HR')">
+            Manage Leave Requests
+        </a>
+    </div>
+    <h1>Human Resource Management System</h1>
+    <hr>
+    <h2>Employee List</h2>
+
+    <div sec:authorize="hasAnyRole('ADMIN', 'HR')">
+        <a th:href="@{/showNewEmployeeForm}" class="btn btn-primary">Add Employee</a>
+    </div>
+
+    <table border="1" class="styled-table">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Position</th>
+            <th sec:authorize="hasAnyRole('ADMIN', 'HR')">Actions</th>
+            <th sec:authorize="!hasAnyRole('ADMIN', 'HR')">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${listEmployees}">
+            <td th:text="${employee.firstName}"></td>
+            <td th:text="${employee.lastName}"></td>
+            <td th:text="${employee.email}"></td>
+            <td th:text="${employee.department}"></td>
+            <td th:text="${employee.position}"></td>
+
+            <td sec:authorize="hasAnyRole('ADMIN', 'HR')" style="white-space: nowrap;">
+                <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-update">Update</a>
+                <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}" class="btn btn-danger">Delete</a>
+                <br>
+                <a th:href="@{/admin/payroll/manage/{employeeId}(employeeId=${employee.id})}" class="btn btn-payroll" style="margin-top: 5px;">Manage Salary</a>
+                <a th:href="@{/admin/payroll/run/{employeeId}(employeeId=${employee.id})}" class="btn btn-primary" style="margin-top: 5px; background-color: #17a2b8;">Run Payroll</a>
+                <a th:href="@{/admin/performance/list/{employeeId}(employeeId=${employee.id})}" class="btn btn-performance" style="margin-top: 5px;">Performance</a>
+            </td>
+
+            <td sec:authorize="!hasAnyRole('ADMIN', 'HR')">
+                View Only
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

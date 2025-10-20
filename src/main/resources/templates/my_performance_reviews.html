@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>My Performance Reviews</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .review-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #fdfdfd;
+        }
+        .review-card h3 {
+            margin-top: 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .review-card h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .review-card p {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header-bar">
+        Welcome, <span sec:authentication="name"></span> |
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+        | <a th:href="@{/}" class="btn-logout" style="font-weight: bold;">Home</a>
+    </div>
+
+    <h1>My Performance Reviews</h1>
+    <hr>
+
+    <div th:if="${#lists.isEmpty(myReviews)}">
+        <p>You have no performance reviews on file.</p>
+    </div>
+
+    <div th:each="review : ${myReviews}" class="review-card">
+        <h3>
+            Review Date: <span th:text="${review.reviewDate}" style="font-weight:normal;"></span>
+            <span style="float:right;">Overall: <strong th:text="${review.overallRating != null ? review.overallRating + '/5' : 'N/A'}"></strong></span>
+        </h3>
+
+        <h4>Strengths</h4>
+        <p th:text="${!#strings.isEmpty(review.strengths) ? review.strengths : 'N/A'}"></p>
+
+        <h4>Areas for Improvement</h4>
+        <p th:text="${!#strings.isEmpty(review.areasForImprovement) ? review.areasForImprovement : 'N/A'}"></p>
+
+        <h4>Manager Comments</h4>
+        <p th:text="${!#strings.isEmpty(review.managerComments) ? review.managerComments : 'N/A'}"></p>
+    </div>
+
+</div>
+</body>
+</html>

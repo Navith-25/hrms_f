@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>My Payslips</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+
+    <div class="header-bar">
+        Welcome, <span sec:authentication="name"></span> |
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+        | <a th:href="@{/}" class="btn-logout" style="font-weight: bold;">Home</a>
+    </div>
+
+    <h1>My Payslips</h1>
+    <hr>
+
+    <table class="styled-table">
+        <thead>
+        <tr>
+            <th>Pay Date</th>
+            <th>Base Pay</th>
+            <th>Bonus</th>
+            <th>Net Pay</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(myPayslips)}">
+            <td colspan="5" style="text-align: center;">You have no payslips.</td>
+        </tr>
+        <tr th:each="slip : ${myPayslips}">
+            <td th:text="${slip.payDate}"></td>
+            <td th:text="${#numbers.formatCurrency(slip.basePay)}"></td>
+            <td th:text="${#numbers.formatCurrency(slip.bonus)}"></td>
+            <td th:text="${#numbers.formatCurrency(slip.netPay)}" style="font-weight:bold;"></td>
+            <td>
+                <a th:href="@{/payslip/{id}(id=${slip.id})}" class="btn btn-primary" style="padding: 6px 12px;">View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
